@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const profilePicture = document.querySelector('.profile-picture');
   const profileContainer = document.querySelector('.profile-container');
   
-  const startMessage = "(ーー;)";
+  const startMessage = "(￣o￣) zzZZzzZZ";
   let startTextContent = '';
   let startIndex = 0;
   let startCursorVisible = true;
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
     );
 
     typeWriterName();
-    profileBio.textContent = "boss";
+    profileBio.textContent = "sleep";
   }
 
   startScreen.addEventListener('click', enterSite);
