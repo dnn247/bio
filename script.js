@@ -82,8 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeVisitorCounter();
 
   function enterSite(e) {
-    if (e) e.preventDefault();
-    
     startScreen.classList.add('hidden');
     topControls.classList.remove('hidden');
     
@@ -93,9 +91,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     profileBlock.classList.remove('hidden');
+    
     gsap.fromTo(profileBlock,
-      { opacity: 0, y: -50 },
-      { opacity: 1, y: 0, duration: 1, ease: 'power2.out', onComplete: () => {
+      { opacity: 0, y: -50, xPercent: -50, yPercent: -50 },
+      { opacity: 1, y: 0, xPercent: -50, yPercent: -50, duration: 1, ease: 'power2.out', onComplete: () => {
         profileBlock.classList.add('profile-appear');
         profileContainer.classList.add('orbit');
       }}
@@ -132,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let isMuted = false;
 
   function toggleMute(e) {
-      if(e) e.preventDefault();
+      if(e && e.type !== 'touchstart') e.preventDefault(); 
       isMuted = !isMuted;
       currentAudio.muted = isMuted;
       volumeIcon.innerHTML = isMuted
@@ -154,15 +153,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const rect = element.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
-    let clientX, clientY;
-
-    if (e.type === 'touchmove') {
-      clientX = e.touches[0].clientX;
-      clientY = e.touches[0].clientY;
-    } else {
-      clientX = e.clientX;
-      clientY = e.clientY;
-    }
+    
+    const clientX = e.clientX;
+    const clientY = e.clientY;
 
     const mouseX = clientX - centerX;
     const mouseY = clientY - centerY;
@@ -190,7 +183,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       block.addEventListener('mousemove', (e) => handleTilt(e, block));
-      block.addEventListener('touchmove', (e) => { e.preventDefault(); handleTilt(e, block); });
       
       const resetTilt = () => {
         gsap.to(block, { 
@@ -203,7 +195,6 @@ document.addEventListener('DOMContentLoaded', () => {
       };
       
       block.addEventListener('mouseleave', resetTilt);
-      block.addEventListener('touchend', resetTilt);
   });
 
   profilePicture.addEventListener('mouseenter', () => {
@@ -212,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   function spinProfile(e) {
-      if(e) e.preventDefault();
+      if(e && e.type !== 'touchstart') e.preventDefault();
       profileContainer.classList.remove('fast-orbit', 'orbit');
       void profileContainer.offsetWidth; 
       profileContainer.classList.add('fast-orbit');
@@ -229,17 +220,17 @@ document.addEventListener('DOMContentLoaded', () => {
   let isShowingSkills = false;
   
   function toggleSkills(e) {
-      if(e) e.preventDefault();
+      if(e && e.type !== 'touchstart') e.preventDefault();
       
       if (!isShowingSkills) {
       gsap.to(profileBlock, {
-        x: -100, opacity: 0, duration: 0.5, ease: 'power2.in',
+        x: -100, opacity: 0, duration: 0.5, ease: 'power2.in', xPercent: -50, yPercent: -50,
         onComplete: () => {
           profileBlock.classList.add('hidden');
           skillsBlock.classList.remove('hidden');
           gsap.fromTo(skillsBlock,
-            { x: 100, opacity: 0 },
-            { x: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }
+            { x: 100, opacity: 0, xPercent: -50, yPercent: -50 },
+            { x: 0, opacity: 1, xPercent: -50, yPercent: -50, duration: 0.5, ease: 'power2.out' }
           );
           gsap.to(pythonBar, { width: '87%', duration: 2, ease: 'power2.out' });
           gsap.to(cppBar, { width: '75%', duration: 2, ease: 'power2.out' });
@@ -250,13 +241,13 @@ document.addEventListener('DOMContentLoaded', () => {
       isShowingSkills = true;
     } else {
       gsap.to(skillsBlock, {
-        x: 100, opacity: 0, duration: 0.5, ease: 'power2.in',
+        x: 100, opacity: 0, duration: 0.5, ease: 'power2.in', xPercent: -50, yPercent: -50,
         onComplete: () => {
           skillsBlock.classList.add('hidden');
           profileBlock.classList.remove('hidden');
           gsap.fromTo(profileBlock,
-            { x: -100, opacity: 0 },
-            { x: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }
+            { x: -100, opacity: 0, xPercent: -50, yPercent: -50 },
+            { x: 0, opacity: 1, xPercent: -50, yPercent: -50, duration: 0.5, ease: 'power2.out' }
           );
         }
       });

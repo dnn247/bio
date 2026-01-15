@@ -429,6 +429,7 @@ body {
     height: auto;
     min-height: auto;
     padding: 20px;
+    transform: translate(-50%, -50%); 
   }
   
   .profile-header {
