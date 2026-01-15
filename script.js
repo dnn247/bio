@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const profilePicture = document.querySelector('.profile-picture');
   const profileContainer = document.querySelector('.profile-container');
   
-  const startMessage = "Click here to see the motion baby";
+  const startMessage = "(ーー;)";
   let startTextContent = '';
   let startIndex = 0;
   let startCursorVisible = true;
